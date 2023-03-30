@@ -41,4 +41,8 @@ export class Reaction {
     onBecomeStale() {
         this.schedule()
     }
+
+    dispose() {
+        this.observing = []
+    }
 }

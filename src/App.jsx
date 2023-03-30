@@ -1,16 +1,44 @@
-import { useState } from 'react'
-import './App.css'
+import React from 'react';
+import { observable, autorun } from './mobx';
+import { observer, useObserver } from './mobx-react';
+// class Store {
+//     number = 1
+//     constructor() {
+//         makeAutoObservable(this, {}, { autoBind: true });
+//     }
+//     add() {
+//         this.number++;
+//     }
+// }
 
-function App() {
-  const [count, setCount] = useState(0)
+// let store = new Store();
 
-  return (
-    <div className="App">
-      <div>
+const store = observable({
+  number: 1,
+  add(){
+    this.number++
+  }
+})
 
+console.log("store", store)
+
+// export default observer(function () {
+//     return (
+//         <div>
+//             <p>{store.number}</p>
+//             <button onClick={() => store.add()}>+</button>
+//         </div>
+//     );
+// });
+
+@observer
+class App extends React.Component {
+  render() {
+      return <div>
+        <p>{store.number}</p>
+        <button onClick={() => store.add()}>+</button>
       </div>
-    </div>
-  )
+  }
 }
 
 export default App
